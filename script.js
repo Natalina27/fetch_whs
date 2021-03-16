@@ -1,10 +1,16 @@
 const url = 'https://api.github.com/users/';
-const userName = 'Natalina27';
 
-const createUser = (name, bio, img) => {
+//Take value from query parameter
+const urlParams = new URLSearchParams(window.location.search);
+const nameFromUrl = urlParams.get('username');
+const userName = nameFromUrl ? nameFromUrl : 'Natalina27';
+
+const createUser = (name, bio, img, url) => {
     const wrapperDiv = document.getElementById('wrapper');
     const title = document.createElement('h1');
     title.innerText = name;
+    title.addEventListener('click', () => window.location = url);
+    title.classList.add('name');
     wrapperDiv.append(title);
 
     const paragraph = document.createElement('p');
@@ -38,7 +44,9 @@ fetch(`${url}${userName}`)
         return response.json();
     })
     .then(json => {
-        const { name, bio, avatar_url } = json;
-        createUser(name, bio, avatar_url);
+        console.log(json);
+        const { name, bio, avatar_url , html_url} = json;
+        createUser(name, bio, avatar_url, html_url);
+
     })
     .catch(error => errorMessage(error));
