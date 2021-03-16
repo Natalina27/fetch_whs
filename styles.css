@@ -52,3 +52,14 @@ body,html{height:100%;width:100%;overflow-x:hidden}
     cursor: pointer;
     color: darkslateblue;
 }
+
+.date{
+    color: cadetblue ;
+    font-family: "Courier New", serif;
+}
+
+.current{
+    color: darkcyan ;
+    font-family: "Courier New", serif;
+}
+
