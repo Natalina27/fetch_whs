@@ -3,7 +3,7 @@ const url = 'https://api.github.com/users/';
 //Take value from query parameter
 const urlParams = new URLSearchParams(window.location.search);
 const nameFromUrl = urlParams.get('username');
-const userName = nameFromUrl ? nameFromUrl : 'Natalina27';
+const userName = nameFromUrl ? nameFromUrl : 'Natalina2';
 
 const createUser = (name, bio, img, url) => {
     const wrapperDiv = document.getElementById('wrapper');
@@ -26,7 +26,7 @@ const createUser = (name, bio, img, url) => {
 const errorMessage = error =>{
     const wrapperDiv = document.getElementById('wrapper');
     const title = document.createElement('h1');
-    title.innerText = `${error.name}: ${error.message}`;
+    title.innerText = ` ${error.message}`;
     title.classList.add('error');
     wrapperDiv.append(title);
 }
@@ -39,7 +39,7 @@ setTimeout(() => {
 fetch(`${url}${userName}`)
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('Информация о пользователе не доступна');
         }
         return response.json();
     })
