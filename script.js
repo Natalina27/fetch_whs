@@ -3,6 +3,7 @@ const url = 'https://api.github.com/users/';
 //Take value from query parameter
 const urlParams = new URLSearchParams(window.location.search);
 const nameFromUrl = urlParams.get('username');
+console.log('nameFromUrl', nameFromUrl);//7d0qt5jr4qh1r1t3de6r63so2c || _ijt
 const userName = nameFromUrl ? nameFromUrl : 'Natalina27';
 
 const createUser = (name, bio, img, url) => {
