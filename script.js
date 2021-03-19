@@ -50,59 +50,79 @@ const errorMessage = error =>{
     wrapperDiv.append(title);
 }
 
-//promises
-const getName = fetch(`${url}${userName}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            preloader.classList.add('stop');
-                            throw new Error('Network response was not ok');
-                        }else{
-                            preloader.classList.add('stop');
-                            return response.json();
-                        }
-                    })
-                    .then(json => {
-                        console.log(json);
-                        const { name} = json;
-                        return name;
-                        // createUser(name);
+(async () => {
+    try{
+        const response = await fetch(`${url}${userName}`);
+        const data = await response.json();
+        console.log('data', data.name);
+    }catch(error){
+        console.log(error);
+    }
+})();
 
-                    })
-                    .catch(error => errorMessage(error));
+const fetch1 = fetch(`${url}${userName}`);
+const fetch2 = fetch(`${url}${userName}`);
+const fetch3 = fetch(`${url}${userName}`);
 
-console.log('getName', getName);
-
-//     new Promise((res, rej) =>{
-//     setTimeout(() => userName ? res(userName) : rej('Имя не найдено'), 1000)
-// });
-const getUrl = new Promise((res, rej) =>{
-    setTimeout(() => url ? res(url) : rej('Ссылка не найдена'), 1000)
-});
-const getDate = new Promise((res, rej) =>{
-    setTimeout(() => date ? res(date) : rej('Дата не найдена'), 2000)
-});
-
-Promise.all([getUrl, getName, getDate])
-    .then((result) =>{
-        console.log('result', result);
+Promise.all([fetch1, fetch2, fetch3])
+    .then((result) => {
+        console.log(result);
     })
-        // fetch(`${url}${userName}`)
-        // .then(response => {
-        //     if (!response.ok) {
-        //         preloader.classList.add('stop');
-        //         throw new Error('Network response was not ok');
-        //     }else{
-        //         preloader.classList.add('stop');
-        //         return response.json();
-        //     }
-        // })
-        // .then(json => {
-        //     console.log(json);
-        //     const { name, bio, avatar_url , html_url, created_at} = json;
-        //     createUser(name, bio, avatar_url, html_url, created_at);
-        //
-        // })
-        // .catch(error => errorMessage(error)));
-        //
-        //
+
+//
+// //promises
+// const getName = fetch(`${url}${userName}`)
+//                     .then(response => {
+//                         if (!response.ok) {
+//                             preloader.classList.add('stop');
+//                             throw new Error('Network response was not ok');
+//                         }else{
+//                             preloader.classList.add('stop');
+//                             return response.json();
+//                         }
+//                     })
+//                     .then(json => {
+//                         console.log(json);
+//                         const { name} = json;
+//                         return name;
+//                         // createUser(name);
+//
+//                     })
+//                     .catch(error => errorMessage(error));
+//
+// console.log('getName', getName);
+//
+// //     new Promise((res, rej) =>{
+// //     setTimeout(() => userName ? res(userName) : rej('Имя не найдено'), 1000)
+// // });
+// const getUrl = new Promise((res, rej) =>{
+//     setTimeout(() => url ? res(url) : rej('Ссылка не найдена'), 1000)
+// });
+// const getDate = new Promise((res, rej) =>{
+//     setTimeout(() => date ? res(date) : rej('Дата не найдена'), 2000)
+// });
+//
+// Promise.all([getUrl, getName, getDate])
+//     .then((result) =>{
+//         console.log('result', result);
+//     })
+//         // fetch(`${url}${userName}`)
+//         // .then(response => {
+//         //     if (!response.ok) {
+//         //         preloader.classList.add('stop');
+//         //         throw new Error('Network response was not ok');
+//         //     }else{
+//         //         preloader.classList.add('stop');
+//         //         return response.json();
+//         //     }
+//         // })
+//         // .then(json => {
+//         //     console.log(json);
+//         //     const { name, bio, avatar_url , html_url, created_at} = json;
+//         //     createUser(name, bio, avatar_url, html_url, created_at);
+//         //
+//         // })
+//         // .catch(error => errorMessage(error)));
+//         //
+//         //
 
