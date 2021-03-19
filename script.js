@@ -51,34 +51,58 @@ const errorMessage = error =>{
 }
 
 //promises
-const getName = new Promise((res, rej) =>{
-    setTimeout(() => userName ? res(userName) : rej('Имя не найдено'), 1000)
-});
+const getName = fetch(`${url}${userName}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            preloader.classList.add('stop');
+                            throw new Error('Network response was not ok');
+                        }else{
+                            preloader.classList.add('stop');
+                            return response.json();
+                        }
+                    })
+                    .then(json => {
+                        console.log(json);
+                        const { name} = json;
+                        return name;
+                        // createUser(name);
+
+                    })
+                    .catch(error => errorMessage(error));
+
+console.log('getName', getName);
+
+//     new Promise((res, rej) =>{
+//     setTimeout(() => userName ? res(userName) : rej('Имя не найдено'), 1000)
+// });
 const getUrl = new Promise((res, rej) =>{
-    setTimeout(() => date ? res(date) : rej('Ссылка не найдена'), 1000)
+    setTimeout(() => url ? res(url) : rej('Ссылка не найдена'), 1000)
 });
 const getDate = new Promise((res, rej) =>{
-    setTimeout(() => url ? res(url) : rej('Дата не найдена'), 1000)
+    setTimeout(() => date ? res(date) : rej('Дата не найдена'), 2000)
 });
 
 Promise.all([getUrl, getName, getDate])
-    .then(([url, userName]) => fetch(`${url}${userName}`)
-        .then(response => {
-            if (!response.ok) {
-                preloader.classList.add('stop');
-                throw new Error('Network response was not ok');
-            }else{
-                preloader.classList.add('stop');
-                return response.json();
-            }
-        })
-        .then(json => {
-            console.log(json);
-            const { name, bio, avatar_url , html_url, created_at} = json;
-            createUser(name, bio, avatar_url, html_url, created_at);
-
-        })
-        .catch(error => errorMessage(error)));
-
-
+    .then((result) =>{
+        console.log('result', result);
+    })
+        // fetch(`${url}${userName}`)
+        // .then(response => {
+        //     if (!response.ok) {
+        //         preloader.classList.add('stop');
+        //         throw new Error('Network response was not ok');
+        //     }else{
+        //         preloader.classList.add('stop');
+        //         return response.json();
+        //     }
+        // })
+        // .then(json => {
+        //     console.log(json);
+        //     const { name, bio, avatar_url , html_url, created_at} = json;
+        //     createUser(name, bio, avatar_url, html_url, created_at);
+        //
+        // })
+        // .catch(error => errorMessage(error)));
+        //
+        //
 
