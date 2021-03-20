@@ -50,79 +50,64 @@ const errorMessage = error =>{
     wrapperDiv.append(title);
 }
 
-(async () => {
+const getName = (async () => {
     try{
         const response = await fetch(`${url}${userName}`);
         const data = await response.json();
-        console.log('data', data.name);
+        return data.name;
     }catch(error){
         console.log(error);
     }
 })();
 
-const fetch1 = fetch(`${url}${userName}`);
-const fetch2 = fetch(`${url}${userName}`);
-const fetch3 = fetch(`${url}${userName}`);
+const getBio = (async () => {
+    try{
+        const response = await fetch(`${url}${userName}`);
+        const data = await response.json();
+        return data.bio;
+    }catch(error){
+        console.log(error);
+    }
+})();
+const getImg = (async () => {
+    try{
+        const response = await fetch(`${url}${userName}`);
+        const data = await response.json();
+        console.log('data', data);
+        return data.avatar_url;
+    }catch(error){
+        console.log(error);
+    }
+})();
+const getUrl = (async () => {
+    try{
+        const response = await fetch(`${url}${userName}`);
+        const data = await response.json();
+        console.log('data', data);
+        return data.html_url;
+    }catch(error){
+        console.log(error);
+    }
+})();const getCtreatedDate = (async () => {
+    try{
+        const response = await fetch(`${url}${userName}`);
+        const data = await response.json();
+        return data.created_at;
+    }catch(error){
+        console.log(error);
+    }
+})();
+const fetch1 = getName;
+const fetch2 = getBio;
+const fetch3 = getImg;
+const fetch4 = getUrl;
+const fetch5 = getCtreatedDate;
 
-Promise.all([fetch1, fetch2, fetch3])
+Promise.all([fetch1, fetch2, fetch3, fetch4, fetch5])
     .then((result) => {
+        preloader.classList.add('stop');
         console.log(result);
+        createUser(...result);
     })
 
-//
-// //promises
-// const getName = fetch(`${url}${userName}`)
-//                     .then(response => {
-//                         if (!response.ok) {
-//                             preloader.classList.add('stop');
-//                             throw new Error('Network response was not ok');
-//                         }else{
-//                             preloader.classList.add('stop');
-//                             return response.json();
-//                         }
-//                     })
-//                     .then(json => {
-//                         console.log(json);
-//                         const { name} = json;
-//                         return name;
-//                         // createUser(name);
-//
-//                     })
-//                     .catch(error => errorMessage(error));
-//
-// console.log('getName', getName);
-//
-// //     new Promise((res, rej) =>{
-// //     setTimeout(() => userName ? res(userName) : rej('Имя не найдено'), 1000)
-// // });
-// const getUrl = new Promise((res, rej) =>{
-//     setTimeout(() => url ? res(url) : rej('Ссылка не найдена'), 1000)
-// });
-// const getDate = new Promise((res, rej) =>{
-//     setTimeout(() => date ? res(date) : rej('Дата не найдена'), 2000)
-// });
-//
-// Promise.all([getUrl, getName, getDate])
-//     .then((result) =>{
-//         console.log('result', result);
-//     })
-//         // fetch(`${url}${userName}`)
-//         // .then(response => {
-//         //     if (!response.ok) {
-//         //         preloader.classList.add('stop');
-//         //         throw new Error('Network response was not ok');
-//         //     }else{
-//         //         preloader.classList.add('stop');
-//         //         return response.json();
-//         //     }
-//         // })
-//         // .then(json => {
-//         //     console.log(json);
-//         //     const { name, bio, avatar_url , html_url, created_at} = json;
-//         //     createUser(name, bio, avatar_url, html_url, created_at);
-//         //
-//         // })
-//         // .catch(error => errorMessage(error)));
-//         //
-//         //
 
