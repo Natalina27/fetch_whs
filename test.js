@@ -15,12 +15,11 @@ const promise = new Promise((res, rej) =>{
 //         createUser(name, bio, avatar_url, html_url);
 //
 //     })
-     const fetchFunc = async () => {
-        const response = await fetch(`https://api.github.com/users/Natalina27`);
-        if(response.status === 200){
-            const json = await response.json();
-            console.log('json', json);
-        }
-        // return json.name;
-     }
-     fetchFunc();
+(async () => {
+         const response = await fetch(`https://api.github.com/users/Natalina27`);
+         if (response.status === 200) {
+             const json = await response.json();
+             console.log('json', json);
+         }
+     })();
+
